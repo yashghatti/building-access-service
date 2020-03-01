@@ -2,6 +2,8 @@ const axios = require('axios').default;
 const mergeJSON = require("merge-json") ;
 const _ = require("lodash");
 
+const ping = require('ping');
+
 var config = {
     baseRouterURL: 'http://192.168.0.1'
 }
@@ -63,4 +65,12 @@ module.exports.isMacConnected = async (mac) => {
             return true;
         }
     }) >= 0;
+};
+
+module.exports.isHostConnected = (ipaddr, callback, timeoutSec = 1) => {
+    ping.sys.probe(ipaddr, function(isAlive){
+        callback(isAlive, ipaddr);
+    }, {
+        timeout: timeoutSec
+    });
 };

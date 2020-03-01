@@ -1,0 +1,73 @@
+[
+  {
+    "settings": {
+      "opsNotify": 0,
+      "opsHistory": 1,
+      "alarmNotify": 1
+    },
+    "group": "",
+    "online": true,
+    "shareUsersInfo": [],
+    "groups": [],
+    "devGroups": [],
+    "_id": "5c7124e78dbf4aea747c95ed",
+    "name": "Door Switch",
+    "type": "10",
+    "deviceid": "10005a5133",
+    "apikey": "a044f527-db66-4f52-93cb-48de93c48b5e",
+    "extra": {
+      "extra": {
+        "uiid": 14,
+        "description": "WO1818624",
+        "brandId": "5611402280a0e2630f7b102d",
+        "apmac": "d0:27:00:b4:9f:b7",
+        "mac": "d0:27:00:b4:9f:b6",
+        "ui": "开关改装模块",
+        "modelInfo": "56f3bb2f0c2bf59c5eda87e8",
+        "model": "ITA-GZ1-GL",
+        "manufacturer": "深圳创易智能系统有限公司",
+        "staMac": "80:7D:3A:68:3E:44",
+        "chipid": "00683E44"
+      },
+      "_id": "5bd178e6c78f26692eba48b3"
+    },
+    "params": {
+      "controlType": "7",
+      "version": 8,
+      "partnerApikey": "c998be10-nn11-4bfz-a44k-02fafm4897b5",
+      "pulseWidth": 120000,
+      "pulse": "on",
+      "init": 1,
+      "sledOnline": "on",
+      "bindInfos": {
+        "gaction": [
+          "a044f527-db66-4f52-93cb-48de93c48b5e_ewelink-google-home-v1"
+        ]
+      },
+      "switch": "off",
+      "fwVersion": "3.0.1",
+      "rssi": -44,
+      "staMac": "80:7D:3A:68:3E:44",
+      "startup": "off"
+    },
+    "createdAt": "2019-02-23T10:48:07.299Z",
+    "__v": 0,
+    "onlineTime": "2020-02-23T23:19:41.430Z",
+    "ip": "24.89.77.123",
+    "location": "",
+    "deviceStatus": "",
+    "offlineTime": "2020-02-23T23:18:50.284Z",
+    "tags": {
+      "m_8b5e_yash": "on"
+    },
+    "sharedTo": [],
+    "devicekey": "913d5cee-5610-429e-bc14-a8127e9f85a7",
+    "deviceUrl": "",
+    "brandName": "Maker",
+    "showBrand": true,
+    "brandLogoUrl": "",
+    "productModel": "Sonoff Sv",
+    "devConfig": {},
+    "uiid": 14
+  }
+]

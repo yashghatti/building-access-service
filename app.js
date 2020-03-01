@@ -16,7 +16,7 @@ app.get("/wifi-clients", async(req, res) => {
 });
 
 app.get("/unlock-front-door", async(req, res) => {
-    await switchService.unlockFrontDoor(process.env.EWELINK_USERNAME, process.env.EWELINK_PASSWORD);
+    await switchService.unlockFrontDoorByLAN();
     res.send({status: "UNLOCKED"});
 });
 
@@ -29,28 +29,31 @@ setInterval(async () => {
     clear();
     console.log("Building Access Service v.1.0 is listening on localhost:"+app.get("port"));
     console.log("\n====> RUNNING ON "+new Date().toString());
-    var pixelConnected = await routerService.isMacConnected(process.env.GOOGLE_PIXEL_MAC);
-    if (pixelConnected) {
-        statusQueue.push({
-            date: new Date(),
-            status: "CONNECTED"
-        });
-    } else {
-        statusQueue.push({
-            date: new Date(),
-            status: "DISCONNECTED"
-        });
-    }
 
-    if(statusQueue.length > 4){
-        statusQueue.splice(0, statusQueue.length - 4);
-    }
+    routerService.isHostConnected(process.env.GOOGLE_PIXEL_STATIC_IP, async (pixelConnected, ipaddr) => {
+        if (pixelConnected) {
+            statusQueue.push({
+                date: new Date(),
+                status: "CONNECTED"
+            });
+        } else {
+            statusQueue.push({
+                date: new Date(),
+                status: "DISCONNECTED"
+            });
+        }
 
-    if(statusQueue.length >= 2 
-        && statusQueue[statusQueue.length-1].status === "CONNECTED"
-        && statusQueue[statusQueue.length-2].status === "DISCONNECTED") {
-        console.log("+=> Detected a new connect event!! Unlocking front door");
-        await switchService.unlockFrontDoor(process.env.EWELINK_USERNAME, process.env.EWELINK_PASSWORD);
-    }
-    console.log(statusQueue);
-}, 5000);
+        if(statusQueue.length > 4){
+            statusQueue.splice(0, statusQueue.length - 4);
+        }
+
+        if(statusQueue.length >= 2 
+            && statusQueue[statusQueue.length-1].status === "CONNECTED"
+            && statusQueue[statusQueue.length-2].status === "DISCONNECTED") {
+            console.log("+=> Detected a new connect event!! Unlocking front door");
+            await switchService.unlockFrontDoorByLAN();
+        }
+        console.log(statusQueue);
+    });
+    
+}, 2000);
