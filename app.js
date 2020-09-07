@@ -1,59 +1,39 @@
-var switchService = require('./services/SwitchService');
-var routerService = require('./services/RouterService');
-var clear = require('clear');
-var app = require('express')();
-require('dotenv').config();
+console.log("=> Starting Building Access Service...");
 
-routerService.config({
-    username: process.env.ROUTER_USERNAME,
-    password: process.env.ROUTER_PASSWORD
+var express = require('express');
+var actuator = require('express-actuator');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var switchService = require('./services/switch');
+
+var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(actuator());
+
+// routerService.config({
+//     username: process.env.ROUTER_USERNAME,
+//     password: process.env.ROUTER_PASSWORD
+// });
+
+// app.get("/wifi-clients", async(req, res) => {
+//     res.send(await routerService.getClientList());
+// });
+
+app.get("/toggle-entry-switch", async(req, res) => {
+    if(!req.query.state) {
+        res.status(400).send('Required query params missing : state');
+        return;
+    }
+    else if (!req.query.state.match("on|off")) {
+        res.status(400).send('Invalid param value : state, can only be "on" or "off"');
+        return;
+    }
+    console.log("-> Recieved switch toggle request on ["+(new Date()).toString()+"], state : "+req.query.state)
+
+    var response = await switchService.unlockFrontDoorByLAN(req.query.state);
+    res.send(response);
 });
 
-app.set("port",process.env.PORT);
-
-app.get("/wifi-clients", async(req, res) => {
-    res.send(await routerService.getClientList());
-});
-
-app.get("/unlock-front-door", async(req, res) => {
-    await switchService.unlockFrontDoorByLAN();
-    res.send({status: "UNLOCKED"});
-});
-
-app.listen(app.get("port") , () => {
-    console.log("Building Access Service v.1.0 is listening on localhost:"+app.get("port"));
-});
-
-var statusQueue = [];
-setInterval(async () => {
-    clear();
-    console.log("Building Access Service v.1.0 is listening on localhost:"+app.get("port"));
-    console.log("\n====> RUNNING ON "+new Date().toString());
-
-    routerService.isHostConnected(process.env.GOOGLE_PIXEL_STATIC_IP, async (pixelConnected, ipaddr) => {
-        if (pixelConnected) {
-            statusQueue.push({
-                date: new Date(),
-                status: "CONNECTED"
-            });
-        } else {
-            statusQueue.push({
-                date: new Date(),
-                status: "DISCONNECTED"
-            });
-        }
-
-        if(statusQueue.length > 4){
-            statusQueue.splice(0, statusQueue.length - 4);
-        }
-
-        if(statusQueue.length >= 2 
-            && statusQueue[statusQueue.length-1].status === "CONNECTED"
-            && statusQueue[statusQueue.length-2].status === "DISCONNECTED") {
-            console.log("+=> Detected a new connect event!! Unlocking front door");
-            await switchService.unlockFrontDoorByLAN();
-        }
-        console.log(statusQueue);
-    });
-    
-}, 2000);
+module.exports = app;

@@ -15,7 +15,13 @@ module.exports.unlockFrontDoorByAPI = async (username, pasword) => {
     return doorSwitch;
 };
 
-module.exports.unlockFrontDoorByLAN = async () => {
+module.exports.unlockFrontDoorByLAN = async (state) => {
+    var acceptedStates = ["on", "off"];
+    if(!state)
+      throw new Error("must provide state 'on' or 'off'");
+    else if(acceptedStates.indexOf(state) == -1)
+      throw new Error("Invalid state, can either be 'on' or 'off' only");
+
     const devicesCache = await Zeroconf.loadCachedDevices();
     const arpTable = await Zeroconf.loadArpTable();
 
@@ -23,5 +29,5 @@ module.exports.unlockFrontDoorByLAN = async () => {
     const connection = new ewelinkApi({ devicesCache, arpTable });
 
     /* turn device on */    
-    await connection.setDevicePowerState(frontDoor, 'on');
+    return (await connection.setDevicePowerState(frontDoor, state));
 };
