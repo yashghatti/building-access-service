@@ -26,7 +26,7 @@
     "express-actuator": "^1.6.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "merge-json": "0.1.0-b.3",
     "morgan": "~1.9.1",
     "ping": "^0.2.2"
