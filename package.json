@@ -1,9 +1,11 @@
 {
-  "name": "building-access-service",
+  "name": "@yashghatti/building-access-service",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start-local": "node dist/index.js",
+    "start": "node index.js",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -16,19 +18,6 @@
   },
   "homepage": "https://github.com/yashghatti/building-access-service#readme",
   "dependencies": {
-    "again": "0.0.1",
-    "axios": "^0.19.2",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^8.2.0",
-    "ewelink-api": "^2.0.0",
-    "express": "^4.17.1",
-    "express-actuator": "^1.6.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "lodash": "^4.17.19",
-    "merge-json": "0.1.0-b.3",
-    "morgan": "~1.9.1",
-    "ping": "^0.2.2"
+    "@yashghatti-auto/gcp-logging-client": "^1.0.3"
   }
 }
