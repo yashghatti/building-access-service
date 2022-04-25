@@ -4,7 +4,7 @@
 API service to toggle ewelink door switch over LAN
 ***
 
-## Run/Debug 
+## Run/Debug
 
 > npm start
 
@@ -13,7 +13,7 @@ API service to toggle ewelink door switch over LAN
 	docker build -t building-access-service --no-cache .
 	docker rm $(docker ps -aqf "name=building-access-service") -f
 	docker run -p 2222:8080 --name building-access-service --restart=always --detach building-access-service
-    
+
 ## Usage
 
 To lock building entrance
