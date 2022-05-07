@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Building Access Service</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            /*@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');*/
+            @font-face {
+                font-family: 'Russo One';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                src: url("/static/russo.woff2") format('woff2');
+                unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            }
+            body{
+                background: lightskyblue;
+                display: flex;
+                flex-direction: column;
+            }
+            .page-wide{
+                width: 100%;
+                text-align: center;
+            }
+            .page-title h1{
+                font-family: 'Russo One', sans-serif;
+                font-size: 4rem;
+                color: white;
+                text-shadow: 1px 1px black;
+            }
+            .page-sprite img{
+                max-width: 75%;
+                width: auto;
+                opacity: 70%;
+            }
+            .page-api-link{
+                margin-top: 4rem;
+                cursor: pointer;
+            }
+            .page-api-link a{
+                color: white;
+                text-decoration: none;
+                font-size: 2rem;
+                font-family: 'Russo One', sans-serif;
+                text-shadow: 1px 1px black;
+                background: mediumseagreen;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0px 4px #328e5b;
+            }
+            .page-api-link .glyph{
+                background: #3ba66b;
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+                margin-left: -8px;
+            }
+            .page-api-link .glyph img{
+                margin-bottom: -21px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page-title page-wide">
+            <h1>BUILDING ACCESS SERVICE</h1>
+        </div>
+        <br>
+        <div class="page-sprite page-wide">
+            <img src="/static/key.png">
+        </div>
+        <div class="page-api-link page-wide">
+            <a href="#">API Docs</a>
+            <a href="#" class="glyph">
+                <img src="/static/icons8-right-button-80.png">
+            </a>
+        </div>
+    </body>
+</html>
